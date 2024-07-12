@@ -8,7 +8,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 import { NavigationContainer } from '@react-navigation/native';
-import LoginLayout from './navigations/loginStack';
+import LoginLayout from '../components/navigation/LoginStack';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

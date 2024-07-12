@@ -3,16 +3,20 @@ import { Image, StyleSheet, Platform, ScrollView, View, TouchableOpacit, Text, T
 
 import  * as KakaoLogin from '@react-native-seoul/kakao-login';
 import axios from 'axios';
-import TabLayout from '../navigations/tabStack';
 import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useNavigation } from "@react-navigation/native";
+import { storeAccessToken, getUserInfo, getAccessToken } from "../../components/storage/KakaoInfo"
 
 
 const REST_API_KEY = 'da167a1f7550695990cc387b5a9dd27e'
 const REDIRECT_URI = 'http://192.168.0.2:8081/Home'
-
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen() {
+
+  const navigation = useNavigation();
   
   function KakaoLoginWebView (data) {
     const exp = "code=";
@@ -37,23 +41,28 @@ export default function LoginScreen({navigation}) {
       },
     }).then((response) => {
       AccessToken = response.data.access_token;
-      storeData(AccessToken);
+      storeAccessToken(AccessToken);  // 유저 토큰 저장
+      getUserInfo(getAccessToken)   //  유저 토큰 출력
     }).catch(function (error) {
       console.log('error', error);
     })
-    navigation.navigate("TabLayout")  //이거 왜 오류나지 ㅠㅠㅠㅠㅠㅠㅠ-------------------------------------------------------------------------
+    navigation.navigate("TabLayout");
   };
 
-  return ( Platform.OS === "web" ? (
+  return ( 
+    Platform.OS === "web" ? (
     //useEffect(() => navigation.navigate("TapLayout"))   //웹은 카카오 api가 안먹힘...
     //<iframe src={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`}
     //height={'100%'} width={'100%'} />
     <TouchableOpacity
         onPress={() => navigation.navigate("TabLayout")}>
           <Text>넘어가기</Text>
+          <Text>넘어가기</Text>
+          <Text>넘어가기</Text>
+          <Text>넘어가기</Text>
     </TouchableOpacity>
   ) : (
-    <View style={Styles.container}>      
+    <View style={Styles.container}>     
       <WebView
         style={{ flex: 1 }}
         originWhitelist={['*']}
@@ -64,7 +73,7 @@ export default function LoginScreen({navigation}) {
         injectedJavaScript={INJECTED_JAVASCRIPT}
         javaScriptEnabled
         //onMessage={event => { KakaoLoginWebView(event.nativeEvent["url"]); }}
-        onMessage={event => { KakaoLoginWebView(event.nativeEvent["url"]); }}
+        onMessage={event => { KakaoLoginWebView(event.nativeEvent["url"]); navigation.navigate("TabLayout")}}
       />
     </View>
   )
@@ -87,7 +96,3 @@ const Styles = StyleSheet.create({
     backgroundColor: '#fff',
   },    
 });
-
-function storeData(AccessToken: string) {     // 더 만들어야 함!!!!!!!-----------------------------------------------------------------------
-  throw new Error('Function not implemented.');
-}

@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Splash from '../login/splash';
-import LoginScreen from '../login/loginScreen';
-import TabLayout from './tabStack';
+import Splash from '../../app/login/splash';
+import LoginScreen from '../../app/login/loginScreen';
+import TabLayout from './TabStack';
 
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -16,6 +16,7 @@ const LoginLayout = () => {
             <Stack.Screen name='Splash' component={Splash}/>
             <Stack.Screen name='LoginScreen' component={LoginScreen}/>
             <Stack.Screen name='TabLayout' component={TabLayout}/>
+
             
             </Stack.Navigator>  
         </NavigationContainer>

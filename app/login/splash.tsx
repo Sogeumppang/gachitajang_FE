@@ -8,7 +8,8 @@ import { ThemedView } from '@/components/ThemedView';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { useNavigation } from '@react-navigation/native';
 
-export default function Splash({navigation}) {
+export default function Splash() {
+  const navigation = useNavigation();
   
   return (
     <View style={styles.backgroundContainer}>

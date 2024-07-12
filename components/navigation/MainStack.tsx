@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import TabLayout from './tabStack';
-import LoginStack from './loginStack';
+import TabLayout from './TabStack';
+import LoginStack from './LoginStack';
 
 
 const Stack = createStackNavigator();

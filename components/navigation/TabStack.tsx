@@ -12,9 +12,10 @@ import { IoPersonSharp } from "react-icons/io5";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
-import Chat from '../(tabs)/chat'
-import Map from '../(tabs)/map'
-import Profile from '../(tabs)/profile'
+import Chat from '../../app/(tabs)/chat'
+import Map from '../../app/(tabs)/map'
+import Profile from '../../app/(tabs)/profile'
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 const Tab = createBottomTabNavigator();
 

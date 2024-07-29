@@ -24,7 +24,7 @@ export default function TabLayout() {
 
   return (
     <NavigationContainer independent={true}>
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="map"
         component={Map}

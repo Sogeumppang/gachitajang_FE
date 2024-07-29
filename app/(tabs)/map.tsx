@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image, Platform, View, Text, TextInput } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -7,84 +7,36 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import Icon from "react-native-vector-icons/Ionicons"
+import { SetStateAction, useState } from 'react';
+
+import { WebView } from 'react-native-webview';
+
+
 export default function Map() {
+  const [searchText, setSearchText] = useState('');
+  const onChangeSearchText = (inputText: SetStateAction<string>) => {
+    setSearchText(inputText);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText> library
-          to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <View style={{flex:1}}>
+      <View style={styles.upContainer}>
+        <View style={styles.universityContainer}>
+          <Text style={styles.universityFont}>
+            삼육대학교
+          </Text>
+        </View>
+        <View style={styles.searchContainer}>
+          <Icon name={"search"} size={hp(3)} color={"#4E7FFF"} />
+          <TextInput onChangeText={onChangeSearchText} value={searchText} placeholder='삼육대학교' style={styles.searchFont}/>
+        </View>
+      </View>
+      <View style={styles.mapContainer}>
+        <WebView source={{html: html}}/>
+      </View>
+    </View>
   );
 }
 
@@ -99,4 +51,64 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
+  upContainer: {
+    flex: 1,
+    backgroundColor: "#f8f8f8"
+  },
+  mapContainer: {
+    backgroundColor: "#ffffff",
+    flex: 7.5
+  },
+  
+
+  universityContainer: {
+    flex:1,
+    borderWidth: hp(1),
+    borderColor: "#f8f8f8",
+    backgroundColor: "#f8f8f8"
+   },
+  universityFont: {
+   fontSize: hp(3)
+  },
+
+  searchContainer: {
+    flex:1,
+    borderWidth: hp(1),
+    borderRadius: 50,
+    borderColor: "#f8f8f8",
+    backgroundColor: "#ffffff",
+    flexDirection: "row",
+    alignItems: "center"
+   },
+  searchFont: {
+   fontSize: hp(2.5) 
+  }
 });
+
+
+
+const html = `
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=앱키&libraries=services,clusterer,drawing"></script> 
+    </head>
+    <body >
+        <div id="map" style="width:500px;height:400px;"></div>
+        <script type="text/javascript">
+            (function () {
+                const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                const options = { //지도를 생성할 때 필요한 기본 옵션
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+                    level: 3 //지도의 레벨(확대, 축소 정도)
+                };
+                
+                const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+                
+                // 주소-좌표 변환 객체를 생성합니다
+                const geocoder = new kakao.maps.services.Geocoder();
+            })();
+        </script>       
+    </body>
+</html>    
+`;

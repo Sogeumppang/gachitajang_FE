@@ -1,13 +1,13 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import Splash from '../../app/login/splash';
 import LoginScreen from '../../app/login/loginScreen';
 import TabLayout from './TabStack';
 
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const LoginLayout = () => {
     return (
@@ -24,3 +24,4 @@ const LoginLayout = () => {
 };
 
 export default LoginLayout;
+

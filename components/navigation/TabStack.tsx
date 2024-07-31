@@ -11,10 +11,6 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 
-import { FaMap } from "react-icons/fa";
-import { IoIosChatbubbles } from "react-icons/io";
-import { IoPersonSharp } from "react-icons/io5";
-
 import Icon1 from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';

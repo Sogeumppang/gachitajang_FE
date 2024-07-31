@@ -13,6 +13,8 @@ import { SetStateAction, useState } from 'react';
 
 import { WebView } from 'react-native-webview';
 
+import MapView, { Marker } from 'react-native-maps';
+
 
 export default function Map() {
   const [searchText, setSearchText] = useState('');
@@ -20,8 +22,17 @@ export default function Map() {
     setSearchText(inputText);
   };
 
+  // 지도
+  const [mapRegion, setMapRegion] = useState({
+    latitude: 37.5666,
+    longitude: 126.9774,
+    latitudeDelta: 0.2,
+    longitudeDelta: 0.2,
+  });
+
+
   return (
-    <View style={{flex:1}}>
+    <View style={styles.mainView}>
       <View style={styles.upContainer}>
         <View style={styles.universityContainer}>
           <Text style={styles.universityFont}>
@@ -34,13 +45,25 @@ export default function Map() {
         </View>
       </View>
       <View style={styles.mapContainer}>
-        <WebView source={{html: html}}/>
+        <MapView style={styles.map}
+          region={mapRegion}
+        >
+          <Marker coordinate={mapRegion} title='Marker' />
+        </MapView>
       </View>
     </View>
   );
 }
 
+//<WebView source={{html: html}}/>
+
 const styles = StyleSheet.create({
+  mainView: {
+    flex:1, 
+    paddingTop: hp(2),
+    backgroundColor: "#f8f8f8"
+  },
+
   headerImage: {
     color: '#808080',
     bottom: -90,
@@ -82,7 +105,13 @@ const styles = StyleSheet.create({
    },
   searchFont: {
    fontSize: hp(2.5) 
-  }
+  },
+
+
+  map: {
+    width: '100%',
+    height: '100%',
+  },
 });
 
 
